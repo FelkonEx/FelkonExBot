@@ -1,0 +1,24 @@
+{
+    "name": "felkonex-bot",
+    "version": "1.0.0",
+    "description": "YEP BOT",
+    "main": "index.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon src\\index.ts",
+        "prettier-format": "prettier --config .prettierrc 'src/**/*.{ts,tsx,js,scss}' --write"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "discord.js": "^14.15.3",
+        "prettier": "^3.3.3",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.5.4"
+    },
+    "devDependencies": {
+        "@types/node": "^22.4.2",
+        "eslint": "^9.9.0",
+        "nodemon": "^3.1.4"
+    }
+}
