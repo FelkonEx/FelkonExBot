@@ -1,11 +1,6 @@
 import { EmbedBuilder } from "discord.js";
 
-export interface EmbedExports {
-    name: string;
-    embed: EmbedBuilder;
-}
-
-const HumbleBundleEmbed = new EmbedBuilder()
+export const HumbleBundleEmbed = new EmbedBuilder()
     .setColor(0x0099ff)
     .setTitle("I'm a Humble Bundle Partner!")
     .setURL("https://www.humblebundle.com?partner=FelkonEx")
@@ -18,9 +13,3 @@ const HumbleBundleEmbed = new EmbedBuilder()
     .setFooter({
         text: "Referral link can be used for anything on Humble Bundle! Just make sure to click my link beforehand!",
     });
-
-const embedArray: Array<EmbedExports> = [
-    { name: "HumbleBundle", embed: HumbleBundleEmbed },
-];
-
-export { embedArray };

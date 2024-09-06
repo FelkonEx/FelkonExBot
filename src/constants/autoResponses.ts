@@ -7,7 +7,7 @@ export interface AutoResponses {
     message?: string;
 }
 
-export const MESSAGE_AUTO_RESPONSES: Array<AutoResponses> = [
+const MESSAGE_AUTO_RESPONSES: Array<AutoResponses> = [
     {
         trigger: ["2", "two", "too"],
         message: "2?",
@@ -19,10 +19,10 @@ export const MESSAGE_AUTO_RESPONSES: Array<AutoResponses> = [
     {
         trigger: ["who asked?"],
         message: "I asked :)",
-    }
+    },
 ];
 
-export const EMBED_AUTO_RESPONSES: Array<AutoResponses> = [
+const EMBED_AUTO_RESPONSES: Array<AutoResponses> = [
     {
         trigger: ["humble", "humble bundle", "humble month"],
         embed: generateEmebed(HumbleBundleEmbed),

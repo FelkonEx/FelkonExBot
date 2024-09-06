@@ -6,8 +6,10 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "nodemon src\\index.ts",
-        "prettier-format": "prettier --config .prettierrc 'src/**/*.{ts,tsx,js,scss}' --write",
-        "generate:embeds": "npx ts-node .\\src\\utils\\generators\\generateEmbeds.ts"
+        "prettier": "prettier --config .prettierrc 'src/**/*.{ts,tsx,js,scss}' --write",
+        "generate:embeds": "npx ts-node .\\src\\utils\\generators\\generateEmbeds.ts",
+        "commands:deploy": " npx ts-node .\\deploy-commands.ts",
+        "commands:clear": " npx ts-node .\\clear-commands.ts"
     },
     "author": "",
     "license": "ISC",

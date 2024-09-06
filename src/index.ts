@@ -1,4 +1,4 @@
-import { GatewayIntentBits } from "discord.js";
+import { Collection, GatewayIntentBits } from "discord.js";
 
 import { token } from "./config.json";
 import { ModifiedClient } from "./classes/ModifiedClient";
@@ -15,18 +15,18 @@ const client = new ModifiedClient({
         GatewayIntentBits.GuildMessages,
     ],
 });
-client.commands = returnCommandCollection(__dirname);
+client.commands = returnCommandCollection();
 
 //setup event triggers
-const discordEvents: Array<NodeRequire> = returnEventNodeRequires(__dirname);
+const discordEvents: Collection<any, any> = returnEventNodeRequires();
 console.log("Setting up the following events:");
 console.log(discordEvents.map((event) => event.name));
 
 discordEvents.forEach((event: any) => {
     if (event.once) {
-        client.once(event.name, (...args: any) => event.execute(...args));
+        client.once(event.type, (...args: any) => event.execute(...args));
     } else {
-        client.on(event.name, (...args: any) => event.execute(...args));
+        client.on(event.type, (...args: any) => event.execute(...args));
     }
 });
 

@@ -1,8 +1,9 @@
-import { AUTO_RESPONSES } from "../constants/autoResponses";
+import { AUTO_RESPONSES } from "../constants/index";
 import { Events, Message } from "discord.js";
 
-module.exports = {
-    name: Events.MessageCreate,
+const autoResponseHandler = {
+    name: "Auto Response Handler",
+    type: Events.MessageCreate,
     async execute({ author, content, channel }: Message) {
         if (author.bot) return;
 
@@ -13,6 +14,7 @@ module.exports = {
         if (!foundObject) return;
         if (foundObject?.embed?.data) {
             await channel.send({ embeds: [foundObject?.embed?.data] });
+            return;
         }
 
         if (foundObject?.message) {
@@ -20,3 +22,4 @@ module.exports = {
         }
     },
 };
+export { autoResponseHandler };

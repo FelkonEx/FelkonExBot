@@ -1,19 +1,18 @@
 import { ModifiedClient } from "classes/ModifiedClient";
 import { CommandInteraction, Events } from "discord.js";
 
-module.exports = {
-    name: Events.InteractionCreate,
+const commandHandler = {
+    name: "Command Handler",
+    type: Events.InteractionCreate,
     async execute(interaction: CommandInteraction) {
         if (!interaction.isCommand()) return;
-        const client = interaction.client as ModifiedClient;
 
-        const command = client.commands.get(
-            interaction.commandName
-        );
+        const client = interaction.client as ModifiedClient;
+        const command = client.commands.get(interaction.commandName);
 
         if (!command) {
             console.error(
-                `No command matching ${interaction.commandName} was found.`
+                `No command matching ${interaction.commandName} was found.`,
             );
             return;
         }
@@ -35,3 +34,5 @@ module.exports = {
         }
     },
 };
+
+export { commandHandler };
