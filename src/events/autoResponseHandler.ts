@@ -1,25 +1,46 @@
-import { AUTO_RESPONSES } from "../constants/index";
-import { Events, Message } from "discord.js";
+import { AUTO_RESPONSES, DELETE_MESSAGE_CHANNELS } from "../constants/index";
+import { EmbedBuilder, Events, Message } from "discord.js";
 
 const autoResponseHandler = {
     name: "Auto Response Handler",
     type: Events.MessageCreate,
-    async execute({ author, content, channel }: Message) {
-        if (author.bot) return;
-
-        const foundObject = AUTO_RESPONSES.find((obj) =>
-            obj.trigger.some((trigger) => content.includes(trigger)),
+    async execute(message: Message) {
+        if (message.author.bot) return;
+        console.log(message);
+        const foundDeleteMessage = DELETE_MESSAGE_CHANNELS.get(
+            message.channel.id,
         );
 
-        if (!foundObject) return;
-        if (foundObject?.embed?.data) {
-            await channel.send({ embeds: [foundObject?.embed?.data] });
-            return;
-        }
+        if (foundDeleteMessage) {
+            await message.delete();
 
-        if (foundObject?.message) {
-            await channel.send(foundObject?.message);
+            if (foundDeleteMessage.response) {
+                const deleteMessage = foundDeleteMessage.appendUser
+                    ? `<@${message.author.id}> ${foundDeleteMessage.response}`
+                    : foundDeleteMessage.response;
+                const reply = await message.channel.send(`${deleteMessage}`);
+
+                setTimeout(async () => {
+                    await reply.delete();
+                }, foundDeleteMessage.deleteResponseTime || 5000);
+            }
+        } else {
+            // need to optimize this, maybe using regex and the `findAutoResponse` function?
+            const foundObject = AUTO_RESPONSES.find((obj) =>
+                obj.trigger.some((trigger) =>
+                    message.content.includes(trigger),
+                ),
+            );
+
+            if (!foundObject) return;
+
+            foundObject?.message instanceof EmbedBuilder
+                ? await message.channel.send({
+                      embeds: [foundObject?.message?.data],
+                  })
+                : await message.channel.send({ content: foundObject?.message });
         }
     },
 };
+
 export { autoResponseHandler };

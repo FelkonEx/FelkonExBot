@@ -1,11 +1,11 @@
 import {
     ChatInputCommandInteraction,
-    CommandInteraction,
     SlashCommandBuilder,
     SlashCommandStringOption,
 } from "discord.js";
+import { Command } from "types/customTypes";
 
-const recommendationCommand = {
+const recommendationCommand: Command = {
     data: new SlashCommandBuilder()
         .setName("recommendation")
         .setDescription("Give FelkonEx a game / website recommendation!")
@@ -34,7 +34,7 @@ const recommendationCommand = {
                     .setName("link")
                     .setDescription("Add a link to the Game / Website")
                     .setRequired(true),
-        ),
+        ) as SlashCommandBuilder,
     async execute(interaction: ChatInputCommandInteraction) {
         const botMessage = await interaction.reply({
             content: "Thanks for the recommendation!",

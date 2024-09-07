@@ -1,6 +1,7 @@
 import { CommandInteraction, Message, SlashCommandBuilder } from "discord.js";
+import { Command } from "types/customTypes";
 
-const userInfoCommand = {
+const userInfoCommand: Command = {
     data: new SlashCommandBuilder()
         .setName("user")
         .setDescription("Provides information about the user."),

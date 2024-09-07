@@ -2,10 +2,7 @@ import { Collection, GatewayIntentBits } from "discord.js";
 
 import { token } from "./config.json";
 import { ModifiedClient } from "./classes/ModifiedClient";
-import {
-    returnCommandCollection,
-    returnEventNodeRequires,
-} from "./utils/collections";
+import { utils } from "./utils";
 
 //setup commands for use
 const client = new ModifiedClient({
@@ -13,12 +10,14 @@ const client = new ModifiedClient({
         GatewayIntentBits.Guilds,
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildModeration
     ],
 });
-client.commands = returnCommandCollection();
+client.commands = utils.returnCommandCollection();
+client.cooldowns = new Collection();
 
 //setup event triggers
-const discordEvents: Collection<any, any> = returnEventNodeRequires();
+const discordEvents: Collection<any, any> = utils.returnEventNodeRequires();
 console.log("Setting up the following events:");
 console.log(discordEvents.map((event) => event.name));
 

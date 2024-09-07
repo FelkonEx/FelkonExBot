@@ -1,15 +1,17 @@
 import {
     SlashCommandBuilder,
-    // Events,
     ModalBuilder,
     TextInputBuilder,
     TextInputStyle,
     ChatInputCommandInteraction,
     ActionRowBuilder,
     ModalActionRowComponentBuilder,
+    ModalSubmitInteraction,
+    Message,
 } from "discord.js";
+import { ModalCommand } from "types/customTypes";
 
-module.exports = {
+const recommendationsModalCommand: ModalCommand = {
     data: new SlashCommandBuilder()
         .setName("recommendation-modal")
         .setDescription(
@@ -20,9 +22,6 @@ module.exports = {
             .setCustomId("recommendation-modal")
             .setTitle("Recommend me something!");
 
-        // Add components to modal
-
-        // Create the text input components
         const NameInput = new TextInputBuilder()
             .setCustomId("nameInput")
             .setLabel("What are you recommending?")
@@ -50,17 +49,51 @@ module.exports = {
                 InfoInput,
             ),
         );
-
-        // An action row only holds one text input,
-        // so you need one action row per text input.
-        // const firstActionRow = new ActionRowBuilder().addComponents(NameInput);
-        // const secondActionRow = new ActionRowBuilder().addComponents(LinkInput);
-        // const thirdActionRow = new ActionRowBuilder().addComponents(InfoInput);
-        // const array = [firstActionRow, secondActionRow, thirdActionRow];
-        // // Add inputs to the modal
-        // modal.addComponents(firstActionRow, secondActionRow, thirdActionRow);
-
-        // Show the modal to the user
         await interaction.showModal(modal);
     },
+
+    async executeResponse(interaction: ModalSubmitInteraction) {
+        
+        const name =
+            interaction.fields.getField("nameInput").value ?? "No name provided";
+
+        const link =
+            interaction.fields.getField("linkInput").value ?? "No name provided";
+
+        const info =
+            interaction.fields.getField("infoInput").value ?? "No link provided";
+
+        let response = ` ### <@${interaction.user.id}> has recommended `;
+        switch (name) {
+            case "game":
+                response += `playing __*${link}*__ `;
+                break;
+            case "website":
+                response += `looking at __*${link}*__ `;
+                break;
+            default:
+                response += `adding __*${link}*__ as an emote to use `;
+                break;
+        }
+        response += "on stream!\n\n";
+        response += `${info}\n`;
+        response += `-# NOTE: Felkon may or may not do this, no promises :slight_smile:`;
+
+        const botMessage = await interaction.reply({
+            content: response,
+            fetchReply: true,
+        });
+
+        const thread = await botMessage.startThread({
+            name: `${link} discussion:`,
+            autoArchiveDuration: 10080, // Auto-archive duration in minutes
+            reason: "Thread created for discussion",
+        });
+
+        const message = thread.send(
+            "If there is any other info about this (or discussion), please post in this thread!",
+        );
+    },
 };
+
+export { recommendationsModalCommand };

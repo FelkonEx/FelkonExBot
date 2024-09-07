@@ -1,6 +1,8 @@
 import { CommandInteraction, Message, SlashCommandBuilder } from "discord.js";
+import { Command } from "types/customTypes";
 
-const pingCommand = {
+const pingCommand: Command = {
+    cooldown: 10,
     data: new SlashCommandBuilder()
         .setName("ping")
         .setDescription("Replies with Pong!"),

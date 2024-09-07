@@ -1,15 +1,10 @@
-import { EmbedBuilder } from "discord.js";
-
 import { AUTO_RESPONSES } from "./autoResponses";
 import { HumbleBundleEmbed } from "./embeds/humbleBundleEmbed";
-
-export interface EmbedExports {
-    name: string;
-    embed: EmbedBuilder;
-}
+import { EmbedExports } from "types/customTypes";
+import { DELETE_MESSAGE_CHANNELS } from "./deleteMessageChannels";
 
 const EMBEDS: Array<EmbedExports> = [
     { name: "HumbleBundle", embed: HumbleBundleEmbed },
 ];
 
-export { AUTO_RESPONSES, EMBEDS };
+export { AUTO_RESPONSES, EMBEDS, DELETE_MESSAGE_CHANNELS };

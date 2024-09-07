@@ -2,8 +2,7 @@ import { ApplicationCommand, REST, Routes } from "discord.js";
 import { clientId, guildId, token } from "./src/config.json";
 import { returnCommandCollection } from "./src/utils/collections";
 
-const dir = __dirname + "\\src";
-const commands = returnCommandCollection(dir);
+const commands = returnCommandCollection();
 const slashCommands = commands.map((item) => item.data.toJSON());
 
 const rest = new REST().setToken(token);

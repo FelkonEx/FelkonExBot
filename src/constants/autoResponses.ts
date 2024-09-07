@@ -1,11 +1,6 @@
 import { Embed, EmbedBuilder, APIEmbed } from "discord.js";
 import HumbleBundleEmbed from "../data/embeds/HumbleBundle.json";
-
-export interface AutoResponses {
-    trigger: Array<string>;
-    embed?: EmbedBuilder;
-    message?: string;
-}
+import { AutoResponses } from "types/customTypes";
 
 const MESSAGE_AUTO_RESPONSES: Array<AutoResponses> = [
     {
@@ -24,8 +19,8 @@ const MESSAGE_AUTO_RESPONSES: Array<AutoResponses> = [
 
 const EMBED_AUTO_RESPONSES: Array<AutoResponses> = [
     {
-        trigger: ["humble", "humble bundle", "humble month"],
-        embed: generateEmebed(HumbleBundleEmbed),
+        trigger: ["humble", "humblebundle"],
+        message: generateEmebed(HumbleBundleEmbed),
     },
 ];
 

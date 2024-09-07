@@ -1,5 +1,5 @@
 import { ModifiedClient } from "classes/ModifiedClient";
-import { CommandInteraction, Events } from "discord.js";
+import { Collection, CommandInteraction, Events } from "discord.js";
 
 const commandHandler = {
     name: "Command Handler",

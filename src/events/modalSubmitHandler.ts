@@ -1,3 +1,4 @@
+import { ModifiedClient } from "classes/ModifiedClient";
 import { Events, Message, ModalSubmitInteraction } from "discord.js";
 
 const modalSubmitHandler = {
@@ -6,30 +7,32 @@ const modalSubmitHandler = {
     async execute(interaction: ModalSubmitInteraction) {
         if (!interaction.isModalSubmit()) return;
 
-        // console.log(interaction.customId);
+        const client = interaction.client as ModifiedClient;
+        const commandModal = client.commands.get(interaction.customId);
 
-        // // how do i pull this to it's own modal folder?
-        // // pass through interaction
-        // if (interaction.customId === "recommendation-modal") {
-        //     const name =
-        //         interaction.fields.getTextInputValue("nameInput") ??
-        //         "No name provided";
-        //     const link =
-        //         interaction.fields.getTextInputValue("linkInput") ??
-        //         "No link provided";
-        //     const info =
-        //         interaction.fields.getTextInputValue("infoInput") ??
-        //         "No info provided";
+        if (!commandModal) {
+            console.error(
+                `No modal matching ${interaction.customId} was found.`,
+            );
+            return;
+        }
 
-        //     let response = ` ### <@${interaction.user.id}> has recommended __*${name}*__ on stream!\n\n`;
-
-        //     response += `${link}\n`;
-        //     if (info) {
-        //         response += `\`\`\` ${info} \`\`\`\n`;
-        //     }
-        //     response += `-# NOTE: Felkon may or may not do this, no promises :slight_smile:`;
-        //     await interaction.reply(response);
-        // }
+        try {
+            await commandModal.executeResponse(interaction);
+        } catch (error) {
+            console.error(error);
+            if (interaction.replied || interaction.deferred) {
+                await interaction.followUp({
+                    content: "There was an error while executing this modal submission!",
+                    ephemeral: true,
+                });
+            } else {
+                await interaction.reply({
+                    content: "There was an error while executing this modal submission!",
+                    ephemeral: true,
+                });
+            }
+        }
     },
 };
 
