@@ -10,7 +10,7 @@ const client = new ModifiedClient({
         GatewayIntentBits.Guilds,
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.GuildModeration
+        GatewayIntentBits.GuildModeration,
     ],
 });
 client.commands = utils.returnCommandCollection();

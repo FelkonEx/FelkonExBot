@@ -7,7 +7,7 @@ const DELETE_MESSAGE_CHANNELS: Map<string, DeleteMessageChannelOptions> =
             {
                 response:
                     "please use the `/recommendation` slash command to add recommendations, TY",
-                appendUser: true
+                appendUser: true,
             },
         ],
     ]);

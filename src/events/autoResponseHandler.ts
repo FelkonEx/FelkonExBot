@@ -6,7 +6,7 @@ const autoResponseHandler = {
     type: Events.MessageCreate,
     async execute(message: Message) {
         if (message.author.bot) return;
-        console.log(message);
+
         const foundDeleteMessage = DELETE_MESSAGE_CHANNELS.get(
             message.channel.id,
         );

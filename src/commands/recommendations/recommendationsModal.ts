@@ -53,15 +53,17 @@ const recommendationsModalCommand: ModalCommand = {
     },
 
     async executeResponse(interaction: ModalSubmitInteraction) {
-        
         const name =
-            interaction.fields.getField("nameInput").value ?? "No name provided";
+            interaction.fields.getField("nameInput").value ??
+            "No name provided";
 
         const link =
-            interaction.fields.getField("linkInput").value ?? "No name provided";
+            interaction.fields.getField("linkInput").value ??
+            "No name provided";
 
         const info =
-            interaction.fields.getField("infoInput").value ?? "No link provided";
+            interaction.fields.getField("infoInput").value ??
+            "No link provided";
 
         let response = ` ### <@${interaction.user.id}> has recommended `;
         switch (name) {

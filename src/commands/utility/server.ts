@@ -9,7 +9,7 @@ const serverInfoCommand: Command = {
         // interaction.guild is the object representing the Guild in which the command was run
         const reply: Message = await interaction.reply({
             content: `This server is ${interaction.guild?.name} and has ${interaction.guild?.memberCount} members.`,
-            fetchReply: true
+            fetchReply: true,
         });
     },
 };

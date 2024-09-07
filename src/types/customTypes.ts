@@ -31,6 +31,6 @@ export type Command = {
 
 export type DeleteMessageChannelOptions = {
     response?: string;
-    appendUser?: boolean,
-    deleteResponseTime?: number
-}
+    appendUser?: boolean;
+    deleteResponseTime?: number;
+};

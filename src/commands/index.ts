@@ -5,7 +5,6 @@ import { pingCommand } from "./utility/ping";
 import { serverInfoCommand } from "./utility/server";
 import { userInfoCommand } from "./utility/user";
 
-
 const TextCommands: Array<Command> = [
     recommendationCommand,
     pingCommand,
